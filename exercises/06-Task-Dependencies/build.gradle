@@ -1,11 +1,15 @@
+println "1"
 task hello {
     doLast {
         println 'Hello World'
     }   
 }
-
+println "2"
 task date {
+	dependsOn hello
+	println "2.1"
     doLast {
  	    println new Date()
     }
 }
+println "3"

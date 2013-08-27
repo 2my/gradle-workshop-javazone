@@ -1,3 +1,13 @@
+/*
+1. Investigate the structure of the multi project build. Execute the `build` task from the root project and observe what is happening. 	
+1. Go to the `api` project. Execute `build` from there. Execute also `buildNeeded` and `buildDependent`. What is different compared to executing the build task?
+1. Execute the `build` task of the `api` project from the root project directory.
+1. Execute `gradle projects` from the root directory.
+1. Execute `gradle projects` and `gradle :projects` from the services directory.
+1. Execute `gradle tasks` and `gradle :api:tasks` from the root project directory.
+1. Execute `gradle :services:webservice:properties` from the root project directory.
+1. Execute `gradle --profile clean build` from the root project. Have a look at the profile report in `build/reports/profile`.
+*/
 subprojects {
     apply plugin: 'java'
     apply plugin: 'eclipse'

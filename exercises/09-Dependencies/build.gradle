@@ -1,2 +1,36 @@
+/*
+  1. Add the Maven Central repository and a configuration named `mydeps`. Assign the `org.apache.httpcomponents:httpclient:4.0.3` dependency to `mydeps`.
+  1. Add a task `showDeps` that prints out the files of the `mydeps` configuration. 
+  1. Add task `copyDeps` that copies the files of the `mydeps` configuration into the `build/deps` dir.
+  1. Execute `gradle dependencies`.
+*/
 
+    apply plugin: 'java'
+    repositories {
+      mavenCentral()
+    }
+
+    configurations {
+      myConf.extendsFrom compile
+			dependencies {
+				compile 'org.apache.httpcomponents:httpclient:4.0.3'
+			}
+    }
+
+
+task showDeps {
+    doLast {
+    configurations.myConf.each { file ->
+      println file
+    }
+    }
+}
+task copyDeps {
+    doLast {
+    copy {
+      from configurations.myConf
+      into 'someFolder'
+    }
+    }
+}
 

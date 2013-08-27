@@ -1,0 +1,8 @@
+class Greeting extends DefaultTask {
+	def greeting	= "Hello World"
+	@TaskAction void greet() { println greeting }
+}
+
+task deft(type: Greeting)
+
+task cust(type: Greeting) { greeting	= "Hello Tommy" }

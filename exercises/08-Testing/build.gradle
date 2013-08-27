@@ -1,3 +1,17 @@
+/*
+## 08-Testing
+1. Run the tests with different settings for `forkEvery`. What do you see?
+1. Run the tests with different settings for `maxParallelForks`. What do you see?
+1. Experiment with some of the `testLogging` options. (It may help to make some tests fail first.)
+1. (Optional) Add a listener that, if a test fails, opens the test results XML file.
+
+	Hints: 
+	
+	1. The test results XML file can be found at `build/test-results/TEST-<test-class-name>.xml`. 
+	1. To execute an external command in Groovy, use `"command args".execute()`.
+	1. Check the Javadoc of the `org.gradle.api.tasks.testing.Test.afterTest` method to learn about its arguments.
+*/
+
 apply plugin: 'java'
 
 version = '1.0'
@@ -7,8 +21,24 @@ repositories {
 }
 
 dependencies {
-    compile 'commons-collections:commons-collections:3.2'
+    compile 'commons-collections:commons-collections:3.1'
     testCompile 'junit:junit:4.10'
+}
+
+test {
+    forkEvery 10
+    maxParallelForks 25
+    afterTest { descriptor, result ->
+    	println "HELLO $descriptor.className"
+    	cmd	= "open build/test-results/TEST-${descriptor.className}.xml"
+    	cmd.execute()
+    }
+      testLogging {
+	    events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+	    showExceptions false
+	    showStackTraces false
+	    stackTraceFilters "truncate", "groovy"
+      }
 }
 
 
